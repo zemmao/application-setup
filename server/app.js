@@ -8,10 +8,13 @@ const jsend = require('jsend').middleware;
 const router = require('./router');
 require('express-async-errors');
 
+const auth = require('./auth');
+
 const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
+app.use(auth.initialize());
 app.use(jsend);
 
 app.use('/api/v1', router);
