@@ -8,7 +8,7 @@ const jsend = require('jsend').middleware;
 const router = require('./router');
 require('express-async-errors');
 
-const auth = require('./auth');
+const auth = require('./common/auth');
 
 const app = express();
 app.use(helmet());
