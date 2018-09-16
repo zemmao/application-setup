@@ -1,8 +1,10 @@
 'use strict';
 
+const { auth: config = {} } = require('../config');
 const { Model } = require('sequelize');
 const { role } = require('../../common/config');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const pick = require('lodash/pick');
 const values = require('lodash/values');
 
@@ -88,6 +90,17 @@ class User extends Model {
       this.password, parseInt(process.env.AUTH_SALT_ROUNDS, 10));
     return this;
   }
+
+  async authenticate(password) {
+    const result = await bcrypt.compare(password, this.password);
+    return result && this;
+  }
+
+  createToken(options = {}) {
+    const payload = pick(this, ['id', 'email']);
+    return jwt.sign(payload, config.secret, options);
+  }
+
 }
 
 module.exports = User;

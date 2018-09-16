@@ -52,5 +52,6 @@ function initialize() {
 
 module.exports = {
   sequelize,
-  initialize
+  initialize,
+  ...models
 };
