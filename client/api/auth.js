@@ -6,7 +6,7 @@ const url = {
 
 function login(credentials) {
   return request.post(url.login, credentials)
-    .then(({ data: { data} }) => {
+    .then(({ data: { data } }) => {
       window.localStorage.setItem('APP_TOKEN', data.token);
       return data.user;
     });
@@ -14,7 +14,6 @@ function login(credentials) {
 
 function logout() {
   window.localStorage.removeItem('APP_TOKEN');
-  window.location.reload();
   return Promise.resolve(true);
 }
 
